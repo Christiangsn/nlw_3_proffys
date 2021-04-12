@@ -1,0 +1,145 @@
+<!-- Tag html-->
+<!-- Configurações do html e pagina HEAD-->
+<!-- Conteúdo visível na pagina, sempre no BODY -->
+<!-- HTML= Linguagem de macação de text-->
+<!-- Live server cria uma porta de servido do documento -->
+<!-- <style>   
+        /* CSS = Folha de Estilo em Cascata, Design da pagina*/
+    </style>  
+-->
+
+<!DOCTYPE html>
+<html lang="pt_br"> <!-- Lang = Atribudo -->
+<head>
+    <meta charset="UTF-8"> <!-- Meta são atributos da pagina -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><!-- Configuração do Estilo da Pagina / Adpatar telas-->
+    <title>Proffy</title> <!-- Título da pagina no navegador -->
+
+    <link rel="stylesheet" href="Styles/main.css">
+    <link rel="stylesheet" href="Styles/Partials/header.css">
+    <link rel="stylesheet" href="Styles/Partials/forms.css">
+    <link rel="stylesheet" href="Styles/Partials/page-give-classes.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&amp;family=Poppins:wght@400;600&amp;display=swap" rel="stylesheet">
+
+    <script src="/scripts/addField.js" defer></script>
+</head>
+<body id="page-give-classes">
+
+      <!-- header = cabecalho da pagina -->
+    <div id="Container">
+        <header class="page-header">
+            <div class="top-bar-container">
+                 <a href="/">
+                     <img src="/images/icons/back.svg" alt="voltar">
+                </a>
+                     <img src="/images/logo.svg" alt="Proffy">                
+            </div>
+
+            <div class="header-content">
+                <strong>Que incrivel que você quer dar aulas!</strong> 
+                <p>O primeiro passo é: Preencha este formulário de inscrição</p>
+
+            </div>
+        </header> 
+        
+        <!--main conteudo principal da pagina -->
+
+        <main>
+            <form action="/save-classes" id="create-class" method="POST">
+                <fieldset> <!-- necessario legend -->
+                    <legend>Seus Dados</legend> <!--Bloco de dados-->
+
+                    <div class="input-block">
+                        <label for="name">Nome Completo</label>
+                        <input name="name" id="name" required>
+                    </div>
+
+                    <div class="input-block">
+                        <label for="avatar">Link da sua Foto<small>(comece com https://)</small></label>
+                        <input name="avatar" id="avatar" type="url" required>
+                    </div>
+                    
+                    <div class="input-block">
+                        <label for="whatsapp">Whatsapp<small>(Somente números)</small></label>
+                        <input name="whatsapp" id="whatsapp" type="number"required>
+                    </div>
+                    
+                    <div class="textarea-block">
+                        <label for="bio">Biografia</label>
+                        <textarea name="bio" id="bio" required></textarea>
+                    </div>
+
+                </fieldset>
+
+                <fieldset>
+                    <legend>Sobre a aula</legend>
+                    <div class="select-block">
+                        <label for="subject">Máteria</label>
+                        <select name="subject" id="subject" required>
+                            <option value="">Selecion uma opção</option>
+                            {%for subject in subjects %} 
+                                 <option value="{{loop.index}}">
+                                       {{subject}}
+                                  </option>
+                           {%endfor%}
+                        </select>
+                    </div>
+
+                    <div class="input-block">
+                        <label for="cost">Custo da sua hora/aula<small>(R$)</small>
+                        </label>
+                        <input name="cost" type="cost" id="cost" type="number"required>
+                    </div>
+                </fieldset>
+
+                <fieldset id="schedule-items">
+                    <legend>horarios disponiveis
+                    <button id="add-time">+ Novo Horário</button>
+                    </legend>
+
+                    <div class="schedule-item">
+
+                        <div class="select-block">
+                            <label for="weekday">Dia(s) da Semana</label>
+                            <select class="weekday[]" required>              /* Contato la no backend para avisar que pode vir mais de um valor*/
+                                {%for weekday in weekdays %}                /* comunicação do front com seleções com o front end */
+                                <option value="{{loop.index0}}">
+                                     {{weekday}}
+                                </option>
+
+                              {%endfor%}
+                            </select>
+                        </div>
+
+                         <div class="input-block">
+                        <label for="time_from">das</label>
+                        <input type="time"  name="time_from" required>
+                         </div>
+
+                        <div class="input-block">
+                        <label for="time_to">Até</label>
+                        <input type="time"  name="time_to" required>
+                        </div>
+                    </div>
+
+                </fieldset>
+
+                
+            </form>
+
+            <footer>
+                <p>
+                    <img src="/images/icons/warning.svg" alt="Aviso Importante">
+                    Importante!<br>  Preencha todos os dados
+                </p>
+                <button type="submit" form="create-class">Salvar Cadastro</button>
+
+            </footer>
+
+        </main>
+    </div>
+
+</body>
+</html>
+  

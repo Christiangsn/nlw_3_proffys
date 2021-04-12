@@ -1,0 +1,120 @@
+<!-- Tag html-->
+<!-- Configurações do html e pagina HEAD-->
+<!-- Conteúdo visível na pagina, sempre no BODY -->
+<!-- HTML= Linguagem de macação de text-->
+<!-- Live server cria uma porta de servido do documento -->
+<!-- <style>   
+        /* CSS = Folha de Estilo em Cascata, Design da pagina*/
+    </style>  
+-->
+
+<!DOCTYPE html>
+<html lang="pt_br"> <!-- Lang = Atribudo -->
+<head>
+    <meta charset="UTF-8"> <!-- Meta são atributos da pagina -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><!-- Configuração do Estilo da Pagina / Adpatar telas-->
+    <title>CCO - Centro de Controle Operacional</title> <!-- Título da pagina no navegador -->
+
+    <link rel="stylesheet" href="Styles/main.css">
+    <link rel="stylesheet" href="Styles/Partials/header.css/.css">
+    <link rel="stylesheet" href="Styles/Partials/forms.css/.css">
+    <link rel="stylesheet" href="Styles/Partials/page-study.css">
+
+
+      <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&amp;family=Poppins:wght@400;600&amp;display=swap" rel="stylesheet">
+
+
+</head>
+<body id="page-study">
+
+      <!-- header = cabecalho da pagina -->
+    <div id="Container">
+        <header class="page-header">
+            <div class="top-bar-container">
+                 <a href="/">
+                     <img src="/images/icons/back.svg" alt="voltar">
+                </a>
+                     <img src="/images/logo.svg" alt="Proffy">                
+            </div>
+
+            <div class="header-content">
+                <strong>Esses são os proffys disponíveis</strong>
+                <form id="search-teachers">
+                   <div class="select-block">
+                       <label form="subject">Máteria</label>
+                       <select name="subject" id= "subject">
+                           <option value="" disabled="" hidden="">Selecione uma Opção</option>
+
+                           {%for subject in subjects %} 
+                                 <option value="{{loop.index}}" {{ "selected" if filters.subject == loop.index }} >
+                                    {{subject}}
+                                 </option>
+                           {%endfor%}
+
+                       </select>
+                   </div>
+
+                   <div class="select-block">
+                    <label form="weekday">Dia da Semana</label>
+                    <select name="weekday" id="weekday">
+                        <option value="" disabled="" hidden="">Selecione uma Opção</option>
+                       
+                        {%for weekday in weekdays %} 
+                             <option value="{{loop.index0}}" {{ "selected" if filters.weekday == loop.index0 }} >
+                                  {{weekday}}
+                             </option>
+                         {%endfor%}
+                        
+                    </select>
+                   </div>
+
+                    <div class="input-block">
+                        <label form="time">Hora (De 0 até 24)</label>
+                        <input name="time" id="time" type="time" value="{{filters.time}}">
+                    </div>
+                    <button type="submit">Filtrar</button>
+                </form>
+            </div>
+        </header> 
+        
+         <!-- Uso do objeto passado no backend-->
+        <!--main conteudo principal da pagina -->
+
+        <main>
+
+            {% if proffys == "" %}
+
+                <p class="no-results"> Nenhum professor encontrado na sua busca!</p>
+
+            {% else %}
+            
+               {%for proffy in proffys %}
+                   <article class="teacher-item"> <!-- Conteudo que vai se repetir varias vezes-->
+                <header>
+                    <img 
+                        src="{{proffy.avatar}}"
+                        alt="{{proff.name}}">
+                    <div>
+                        <strong>{{proffy.name}}</strong>
+                        <span>{{proffy.subject}}</span>
+                    </div>
+                </header>
+                <p>{{proffy.bio}}</p>
+                <footer>
+                    <p>Preço/hora<strong>{{proffy.cost}}</strong>
+                    </p>
+                    <a href="https://api.whatsapp.com/send?1=pt_BR&phone={{proffy.whatsapp}}%7D%7D&text=Tenho interesse na sua aula de {{proffy.subject}} , {{proffy.name}}" class="button" target="blank">
+                        <img src="/images/icons/whatsapp.svg" alt="Whatsapp">Entrar em contato
+                    </a>
+                </footer>
+                   </article>
+
+              {%endfor%} 
+
+            {% endif %}
+
+        </main>
+    </div>
+</body>
+</html>
+  
